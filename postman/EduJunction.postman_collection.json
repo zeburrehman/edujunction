@@ -1,0 +1,104 @@
+{
+  "info": {
+    "_postman_id": "ec63a17a-8328-44ec-a694-2d6f53759563",
+    "name": "EduJunction",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Save Instructor",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Body matches string\", function () {\r",
+              "     var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property(\"id\");\r",
+              "    pm.expect(jsonData).to.have.property(\"name\");\r",
+              "    pm.expect(jsonData.name).not.empty;\r",
+              "    pm.expect(jsonData).to.have.property(\"email\");\r",
+              "    pm.expect(jsonData.email).not.empty;\r",
+              "    pm.environment.set(\"instructorId\", jsonData.id);\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{EduJunctionURL}}/instructors/",
+          "host": [
+            "{{EduJunctionURL}}"
+          ],
+          "path": [
+            "instructors",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Instructors",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{EduJunctionURL}}/instructors/",
+          "host": [
+            "{{EduJunctionURL}}"
+          ],
+          "path": [
+            "instructors",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Instructor By Id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{EduJunctionURL}}/instructors/{{instructorId}}",
+          "host": [
+            "{{EduJunctionURL}}"
+          ],
+          "path": [
+            "instructors",
+            "{{instructorId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: EduJunction Backend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/edujunction
+    username: postgres
+    password: secret
+    hikari:
+      minimum-idle: 5
+      idle-timeout: 600000
+      maximum-pool-size: 20
+      auto-commit: true
+      pool-name: HikariCorePool
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: select * from information_schema.tables limit 1
+  jpa:
+    hibernate:
+      show-sql: true
+    open-in-view: false
+  flyway:
+    baselineOnMigrate: true
+    url: jdbc:postgresql://localhost:5432/edujunction
+    user: postgres
+    password: secret
+  security:
+    jwt_secret: ${JWT_SECRET:zeb-secret}
+logging:
+  file:
+    path: logs/
+server:
+  tomcat:
+    basedir: logs
+    access-log:
+      enabled: true
+      pattern: "%t %a '%r' %s (%D ms)"
+      file-date-format: yyyy-MM-dd
+      prefix: requests_log
+      suffix: .log
+test:
+  user:
+    name: ${TEST_USER_NAME}
+    password: ${TEST_USER_PASS}
